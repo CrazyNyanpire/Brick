@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!-- 配置邮件 senderbean -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.smtp.host}"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+			</props>
+		</property>
+		<property name="username" value="${mail.smtp.username}"></property>
+		<property name="password" value="${mail.smtp.password}"></property>
+		<!-- 端口号 -->
+		<property name="port" value="25" />
+	</bean>
+
+	<bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<!-- 发件人email -->
+		<property name="from" value="${mail.smtp.from}" />
+		<!-- 收件人email <property name="to" value="to@yeah.net" /> email主题(标题) <property 
+			name="subject" value="Subject" /> email主题内容 <property name="text"> <value>ContentText</value> 
+			</property> -->
+	</bean>
+
+	<bean id="senderMailFacade" class="acetecsemi.com.brick.facade.impl.SenderMailFacadeImpl">
+		<property name="mailSender" ref="mailSender" />
+		<property name="simpleMailMessage" ref="simpleMailMessage" />
+	</bean>
+
+	<bean id="maintenanceEquipmentSendNotice"
+		class="acetecsemi.com.brick.infra.impl.MaintenanceEquipmentSendNoticeImpl">
+		<property name="content" value="${notice.maintenance.equipment.content}" />
+		<property name="subject" value="${notice.maintenance.equipment.subject}" />
+		<property name="ccDeptId" value="${notice.maintenance.equipment.ccdeptid}" />
+		<property name="noticeDays" value="3" />
+	</bean>
+
+	<bean id="maintenanceProbeCardSendNotice"
+		class="acetecsemi.com.brick.infra.impl.MaintenanceProbeCardSendNoticeImpl">
+		<property name="contentWarning"
+			value="${notice.maintenance.probecard.contentwarning}" />
+		<property name="contentWarningSlice"
+			value="${notice.maintenance.probecard.contentwarningslice}" />
+		<property name="subjectWarning"
+			value="${notice.maintenance.probecard.subjectwarning}" />
+		<property name="contentError" value="${notice.maintenance.probecard.contenterror}" />
+		<property name="subjectError" value="${notice.maintenance.probecard.subjecterror}" />
+		<property name="toUsers" value="${notice.maintenance.probecard.tousers}" />
+	</bean>
+
+	<bean id="mesTimeClient" class="acetecsemi.com.brick.infra.impl.MesTimeClientImpl">
+		<property name="address" value="${webservice.mes.address}" />
+	</bean>
+	<bean id="employeeInfoSync" class="acetecsemi.com.brick.infra.impl.EmployeeInfoSyncImpl">
+	</bean>
+	<bean id="oaClient" class="acetecsemi.com.brick.infra.impl.OAClientImpl">
+		<property name="address" value="${webservice.oa.address}" />
+	</bean>
+</beans>

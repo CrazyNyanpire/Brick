@@ -1,0 +1,146 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:wsa="http://cxf.apache.org/ws/addressing"
+	xsi:schemaLocation=" http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-2.1.xsd  
+			http://cxf.apache.org/core
+			http://cxf.apache.org/schemas/core.xsd  
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd     
+			http://cxf.apache.org/jaxws
+			http://cxf.apache.org/schemas/jaxws.xsd">
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<cxf:bus>
+		<cxf:features>
+			<!--日志拦截功能，用于监控soap内容，开发后可以删除 -->
+			<cxf:logging />
+			<wsa:addressing />
+		</cxf:features>
+	</cxf:bus>
+
+	<!-- 为每一个提供WS服务的BEAN，定义BEAN以及它对应的jaxws:endpoint -->
+	<!-- implementor="#platformFacadeImpl" 指向接口实现的类，可以是XML或使用@Named定义 -->
+	<jaxws:endpoint id="PlatformFacade" implementor="#platformFacadeImpl"
+		address="/v1/PlatformApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="EquipmentFacade" implementor="#equipmentFacadeImpl"
+		address="/v1/EquipmentApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="BorrowMachineFacade" implementor="#borrowMachineFacadeImpl"
+		address="/v1/BorrowMachineApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="BorrowMachineOptionLogFacade" implementor="#borrowMachineOptionLogFacadeImpl"
+		address="/v1/BorrowMachineOptionLogApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="CategoryFacade" implementor="#categoryFacadeImpl"
+		address="/v1/CategoryFacadeApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="ChangeStatusFacade" implementor="#changeStatusFacadeImpl"
+		address="/v1/ChangeStatusApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="EquipmentOptionLogFacade" implementor="#equipmentOptionLogFacadeImpl"
+		address="/v1/EquipmentOptionLogApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="PinFacade" implementor="#pinFacadeImpl"
+		address="/v1/PinApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="PinInOutStorageLogFacade" implementor="#pinInOutStorageLogFacadeImpl"
+		address="/v1/PinInOutStorageLogApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="PlatformOptionLogFacade" implementor="#platformOptionLogFacadeImpl"
+		address="/v1/PlatformOptionLogApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="ProbeCardFacade" implementor="#probeCardFacadeImpl"
+		address="/v1/ProbeCardApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="ProbeCardOptionLogFacade" implementor="#probeCardOptionLogFacadeImpl"
+		address="/v1/ProbeCardOptionLogApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="SocketFacade" implementor="#socketFacadeImpl"
+		address="/v1/SocketApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="SocketOptionLogFacade" implementor="#socketOptionLogFacadeImpl"
+		address="/v1/SocketOptionLogApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint id="SwiftNumberFacade" implementor="#swiftNumberFacadeImpl"
+		address="/v1/SwiftNumberApplication" publish="true">
+		<jaxws:features>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+				<property name="threshold" value="1" />
+			</bean>
+		</jaxws:features>
+	</jaxws:endpoint>
+</beans>
